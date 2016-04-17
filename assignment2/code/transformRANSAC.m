@@ -1,0 +1,11 @@
+close all;
+clear;
+im1 = rgb2gray(imread('../images/im1.jpg'));
+im1 = imresize(im1, [480 640]);
+figure, imshow(im1);
+im2 = imresize(imrotate(im1,-20), 1.2);
+figure, imshow(im2);
+H = findHomographyRANSAC(im1, im2);
+T = maketform('projective', H);
+t_img = imtransform(im2, T, 'Size', size(im2));
+figure, imshow(t_img);
